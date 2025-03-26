@@ -32,10 +32,10 @@ function HistoricalWeather({ selectedProvince }) {
 
   return (
     <div style={{ marginTop: '20px', border: '1px solid #ccc', padding: '10px' }}>
-      <h2>Historical Weather Data</h2>
+      <h2>Historical Weather Data for {selectedProvince} (1950-2023)</h2>
       
       {!selectedProvince && (
-        <p>Please select a province (via the city selection above) to view historical data.</p>
+        <p>Please select a province to view historical data.</p>
       )}
 
       {error && <p style={{ color: 'red' }}>Error: {error}</p>}
@@ -43,8 +43,8 @@ function HistoricalWeather({ selectedProvince }) {
       {selectedProvince && (
         <>
           {/* Year selection dropdown */}
-          <div style={{ marginBottom: '10px' }}>
-            <label htmlFor="yearSelect">Select Year: </label>
+          <div style={{ marginBottom: '15px' }}>
+            <label htmlFor="yearSelect">Select Year : </label>
             <select
               id="yearSelect"
               value={selectedYear}

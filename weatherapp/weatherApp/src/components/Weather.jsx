@@ -2,17 +2,16 @@
 import React, { useState } from 'react';
 import './Weather.css';
 import HistoricalWeather from './HistoricalWeather';
+import Prediction from './Prediction';
 
 const provinceCityMapping = [
   { province: "Ontario", city: "Toronto" },
   { province: "Quebec", city: "Montreal" },
   { province: "British Columbia", city: "Vancouver" },
   { province: "Alberta", city: "Calgary" },
-  { province: "Manitoba", city: "Winnipeg" },
   { province: "Saskatchewan", city: "Regina" },
   { province: "Nova Scotia", city: "Halifax" },
   { province: "New Brunswick", city: "Moncton" },
-  { province: "Prince Edward Island", city: "Charlottetown" },
   { province: "Newfoundland and Labrador", city: "St. John's" },
 ];
 
@@ -130,6 +129,7 @@ function Weather() {
 
       {/* Historical Weather Component */}
       <HistoricalWeather selectedProvince={selectedProvince} />
+      <Prediction selectedProvince={selectedProvince}/>
     </div>
   );
 }
