@@ -3,7 +3,7 @@
 import os
 import glob
 
-# Define the data directory
+
 data_dir = r"D:\capstone project\data"
 
 

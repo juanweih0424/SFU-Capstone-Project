@@ -4,29 +4,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
-# === Paths ===
+
 input_file = r"D:\capstone project\output\ghgrp_emissions_1950_2023_predicted.csv"
 output_dir = r"D:\capstone project\analysis"
 graph_dir = os.path.join(output_dir, "emissions_vs_temp_graphs")
 os.makedirs(graph_dir, exist_ok=True)
 
-# === Load data ===
+
 df = pd.read_csv(input_file)
 
-# Drop rows with missing values in key columns
 df = df.dropna(subset=['Province', 'Year', 'Annual_Mean_Temp', 'Emissions'])
 
-# === Prepare output summary ===
+
 results = []
 
-# === Process each province ===
+
 for province in df['Province'].unique():
     sub = df[df['Province'] == province].copy().sort_values('Year')
 
     if len(sub) < 2:
         continue
 
-    # Linear regression: Emissions ~ Temp
+
     slope, intercept, r_value, p_value, std_err = linregress(
         sub['Annual_Mean_Temp'], sub['Emissions'])
 
@@ -38,7 +37,7 @@ for province in df['Province'].unique():
         'p_value': p_value
     })
 
-    # === Plot ===
+
     plt.figure(figsize=(6, 4))
     plt.scatter(sub['Annual_Mean_Temp'], sub['Emissions'], alpha=0.6, label='Data')
     line = intercept + slope * sub['Annual_Mean_Temp']
@@ -51,12 +50,12 @@ for province in df['Province'].unique():
     plt.legend()
     plt.tight_layout()
 
-    # Save graph
+
     plot_path = os.path.join(graph_dir, f"{province}_emissions_vs_temp.png")
     plt.savefig(plot_path, dpi=150)
     plt.close()
 
-# === Save summary CSV ===
+
 summary_df = pd.DataFrame(results).sort_values(by='Correlation_r', ascending=False)
 summary_path = os.path.join(output_dir, "emissions_temp_correlation_summary.csv")
 summary_df.to_csv(summary_path, index=False)

@@ -2,27 +2,27 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# === File Paths ===
+
 input_path = r"D:\capstone project\output\ghgrp_emissions_1950_2023_predicted.csv"
 output_dir = r"D:\capstone project\analysis\emissions_per_capita"
 os.makedirs(output_dir, exist_ok=True)
 
-# === Load Data ===
+
 df = pd.read_csv(input_path)
 df = df.dropna(subset=['Province', 'Year', 'Population', 'Emissions'])
 
-# === Calculate Emissions Per Capita ===
+
 df['Emissions_per_Capita'] = df['Emissions'] / df['Population']
 
-# === Create Summary Stats (mean, max, min) ===
+
 summary = df.groupby('Province')['Emissions_per_Capita'].agg(['mean', 'max', 'min']).reset_index()
 summary = summary.sort_values('mean', ascending=False)
 
-# === Save Summary CSV ===
+
 summary_path = os.path.join(output_dir, "emissions_per_capita_summary.csv")
 summary.to_csv(summary_path, index=False)
 
-# === Plot 1: Per-Province Trends Over Time ===
+
 trend_dir = os.path.join(output_dir, "trends")
 os.makedirs(trend_dir, exist_ok=True)
 
@@ -38,7 +38,7 @@ for province in df['Province'].unique():
     plt.savefig(os.path.join(trend_dir, f"{province}_emissions_per_capita.png"), dpi=150)
     plt.close()
 
-# === Plot 2: Bar Chart of Mean Emissions Per Capita ===
+
 plt.figure(figsize=(10, 6))
 plt.bar(summary['Province'], summary['mean'], color='skyblue')
 plt.xticks(rotation=45, ha='right')
@@ -49,7 +49,6 @@ bar_chart_path = os.path.join(output_dir, "mean_emissions_per_capita_bar_chart.p
 plt.savefig(bar_chart_path, dpi=150)
 plt.close()
 
-# === Final Output ===
 print("✅ Analysis Complete!")
 print(f"📄 Summary CSV saved to: {summary_path}")
 print(f"📈 Time-series trend plots saved in: {trend_dir}")
