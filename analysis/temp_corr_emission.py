@@ -10,14 +10,11 @@ output_dir = r"D:\capstone project\analysis"
 graph_dir = os.path.join(output_dir, "emissions_vs_temp_graphs")
 os.makedirs(graph_dir, exist_ok=True)
 
-
 df = pd.read_csv(input_file)
 
 df = df.dropna(subset=['Province', 'Year', 'Annual_Mean_Temp', 'Emissions'])
 
-
 results = []
-
 
 for province in df['Province'].unique():
     sub = df[df['Province'] == province].copy().sort_values('Year')
