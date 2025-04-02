@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://fade0424.github.io/weatherApp",
+  "homepage": "https://juanweih0424.github.io/SFU-Capstone-Project/weatherApp/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
