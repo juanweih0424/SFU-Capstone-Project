@@ -8,7 +8,7 @@ function HistoricalWeather({ selectedProvince }) {
 
   useEffect(() => {
     // Load and parse the CSV from the public folder
-    Papa.parse('/merged_climate_population.csv', {
+    Papa.parse(`${import.meta.env.BASE_URL}merged_climate_population.csv`, {
       download: true,
       header: true, 
       complete: (results) => {
